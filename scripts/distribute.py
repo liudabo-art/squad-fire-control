@@ -40,6 +40,7 @@ Windows 版本没有商业代码签名证书，系统可能显示未知发布者
 这些安装包可从 GitHub Releases 下载：Android 用户选择 Android APK；Windows 用户选择 x64 安装版或免安装版。分享安装包时同时提供 SHA256SUMS.txt、THIRD-PARTY-NOTICES.txt 和 licenses/。切勿分享 Android 签名私钥或凭据。
 '''
 (DEST / '安装说明.txt').write_text(readme, encoding='utf-8-sig')
+shutil.copy2(DEST / '安装说明.txt', DEST / 'Installation-Guide-zh-CN.txt')
 checksums = [f'{digest(p)}  {p.relative_to(DEST).as_posix()}' for p in sorted(DEST.rglob('*')) if p.is_file() and p.name != 'SHA256SUMS.txt']
 (DEST / 'SHA256SUMS.txt').write_text('\n'.join(checksums) + '\n', encoding='utf-8')
 print('Verified all shared assets and 53 maps in each package.')
