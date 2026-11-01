@@ -1,0 +1,11 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.resolve(__dirname, '..');
+fs.mkdirSync(path.join(root, 'vendor'), { recursive: true });
+fs.mkdirSync(path.join(root, 'licenses'), { recursive: true });
+fs.copyFileSync(path.join(root, 'node_modules/lucide/dist/umd/lucide.min.js'), path.join(root, 'vendor/lucide.min.js'));
+fs.copyFileSync(path.join(root, 'node_modules/lucide/LICENSE'), path.join(root, 'licenses/Lucide-LICENSE.txt'));
+const mapDir = path.join(root, 'map-assets');
+const items = fs.existsSync(mapDir) ? fs.readdirSync(mapDir).filter(f => f.endsWith('.webp')) : [];
+if (items.length !== 0 && items.length !== 53) throw new Error('Local map assets must be absent or include all 53 maps');
+console.log(`Prepared local icons and ${items.length} local map assets`);

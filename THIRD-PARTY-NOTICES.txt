@@ -1,0 +1,27 @@
+SQD Fire Control 1.0.0 — community game utility
+
+Not affiliated with or endorsed by Offworld Industries.
+
+SquadCalc by Maxime "sharkman" Boussard
+https://github.com/sh4rkman/SquadCalc
+https://squadcalc.app/
+Weapon data, damage formulas and map configuration reference:
+24828d6d3081c7ce52b10ef39ec86036ebf010b5
+See licenses/SquadCalc-LICENSE.txt. Non-commercial use only.
+
+SquadMC by Robert Ende
+https://github.com/Endebert/squadmc
+Mortar range tables. See licenses/SquadMC-LICENSE.txt (MIT).
+
+Map images are Squad SDK/game assets owned by Offworld Industries and the
+respective mod creators (including Galactic Contention, Steel Division,
+and SuperMod). They are not covered by the code licenses above.
+Upstream attributions: https://github.com/sh4rkman/SquadCalc#attributions
+
+Lucide icons — https://lucide.dev/
+See licenses/Lucide-LICENSE.txt.
+
+Windows runtime: Electron / Chromium / Node.js, with their bundled license notices.
+
+The game data are community-derived estimates. No terrain obstruction,
+armor, or live game version validation is performed by this application.

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SQD / FIRE CONTROL</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https: http:; connect-src 'self'; object-src 'none'; base-uri 'none'" />
+  <meta name="theme-color" content="#111618" />
+  <link rel="stylesheet" href="./styles.css?v=9" />
+</head>
+<body data-mobile-panel="map">
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <div class="brand-mark">SQD</div>
+        <div>
+          <div class="brand-title">FIRE CONTROL</div>
+          <div class="brand-subtitle">SQUAD 游戏计算器 · 1.0.0</div>
+        </div>
+      </div>
+      <div class="topbar-center">
+        <label class="compact-field">
+          <span>MAP</span>
+          <select id="mapSelect" aria-label="选择地图"></select>
+        </label>
+        <label class="compact-field layer-field">
+          <span>LAYER</span>
+          <select id="layerSelect" aria-label="选择地图层级">
+            <option value="basemap">底图</option>
+            <option value="topomap">地形图（联网）</option>
+            <option value="terrainmap">高程图（联网）</option>
+          </select>
+        </label>
+      </div>
+      <div class="topbar-actions">
+        <span class="status-pill"><span class="status-dot"></span>UNVERIFIED DATA</span>
+        <button class="icon-btn" id="importMapBtn" title="导入地图图片" aria-label="导入地图图片"><i data-lucide="image-plus"></i></button>
+        <button class="icon-btn" id="importPlanBtn" title="导入火力计划" aria-label="导入火力计划"><i data-lucide="folder-open"></i></button>
+        <button class="icon-btn" id="exportBtn" title="导出当前火力计划" aria-label="导出当前火力计划"><i data-lucide="download"></i></button>
+        <button class="icon-btn" id="resetBtn" title="重置当前计划" aria-label="重置当前计划"><i data-lucide="rotate-ccw"></i></button>
+      </div>
+    </header>
+    <nav class="mobile-tabs" aria-label="手机页面">
+      <button type="button" data-panel="map" aria-pressed="true">地图</button>
+      <button type="button" data-panel="setup" aria-pressed="false">设置</button>
+    </nav>
+
+    <section class="workspace">
+      <aside class="setup-panel panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">SETUP</p>
+            <h1>射击方案</h1>
+          </div>
+          <span class="micro-tag">LOCAL</span>
+        </div>
+
+        <div class="field-block">
+          <label for="weaponSelect">间接火力武器</label>
+          <select id="weaponSelect"></select>
+          <div class="data-state"><span class="state-dot"></span><span id="weaponStatus">加载射表与弹道参数</span></div>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label-row"><label>炮位高度</label><span class="unit">m</span></div>
+          <input id="gunElevation" type="number" value="0" min="-500" max="500" step="1" />
+          <p class="field-help">如果未知，保持 0；目标也可单独修正。</p>
+        </div>
+
+        <div class="field-block map-scale-block">
+          <label>地图实际尺寸 <span class="unit">km</span></label>
+          <div class="scale-inputs"><input id="mapWidth" type="number" min="0.1" max="100" step="0.00001" aria-label="地图实际宽度（公里）" /><span>×</span><input id="mapHeight" type="number" min="0.1" max="100" step="0.00001" aria-label="地图实际高度（公里）" /></div>
+          <p class="field-help">默认使用 Squad SDK 地图边界；可按已知坐标校准。</p>
+        </div>
+
+        <div class="field-block map-source-block">
+          <label for="mapUrlInput">自定义地图图片（可选）</label>
+          <div class="inline-control"><input id="mapUrlInput" type="url" inputmode="url" placeholder="https://…/map.png" aria-label="远程地图图片 URL" /><button id="loadMapUrlBtn" class="outline-btn compact" type="button" title="加载远程地图图片"><i data-lucide="link"></i>加载</button></div>
+          <p class="field-help">默认使用项目内置的地图底图；也可导入本地图片替换。</p>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <div class="legend-block">
+          <div class="legend-title">MARKER LEGEND</div>
+          <div class="legend-row"><span class="legend-marker gun-marker"></span><span>炮位</span><kbd>GUN</kbd></div>
+          <div class="legend-row"><span class="legend-marker target-marker"></span><span>目标落点</span><kbd>5×5 PX</kbd></div>
+          <div class="legend-row"><span class="blast-legend damage-100"></span><span>100 伤害边界</span><kbd>实线</kbd></div>
+          <div class="legend-row"><span class="blast-legend"></span><span>25 伤害边界</span><kbd>虚线</kbd></div>
+        </div>
+
+        <div class="source-note">
+          <i data-lucide="map"></i>
+          <div><strong>地图数据</strong><p>内置 25 张原版图和 28 张模组图底图；比例来自 SquadCalc 地图边界。</p></div>
+        </div>
+
+        <a class="upstream-link" href="https://squadcalc.app/" target="_blank" rel="noreferrer"><i data-lucide="external-link"></i> 地图来源：SquadCalc · 地图版权归 Offworld Interactive</a>
+        <details class="license-note"><summary>关于与数据来源 · 免费非商业使用</summary><p>社区游戏工具，非官方产品。内置 53 张底图可离线使用；地形图、高程图和自定义网络图片需要联网。</p><p>地图、武器参数及伤害公式参考 SquadCalc（Maxime “sharkman” Boussard），射表来源 SquadMC（Robert Ende）。地图版权属于 Offworld Industries 和各模组作者。</p><p>通用迫击炮伤害参数供参考，不模拟掩体或护甲。当前版本 1.0.0。</p><p><a href="./licenses/SquadCalc-LICENSE.txt" target="_blank">SquadCalc 许可证</a> · <a href="./licenses/SquadMC-LICENSE.txt" target="_blank">SquadMC 许可证</a></p></details>
+      </aside>
+
+      <section class="map-panel panel">
+        <div class="map-toolbar">
+          <div class="map-title"><span class="live-dot"></span><span id="mapTitle">AL BASRAH</span><span class="map-size" id="mapSize">4×4 KM</span></div>
+          <div class="toolbar-actions">
+            <span class="range-badge" id="rangeBadge">MAX RANGE —</span>
+            <span class="map-grid-badge">300 m GRID</span>
+            <button class="tool-btn" id="fitBtn" title="适配视图"><i data-lucide="scan"></i><span>适配</span></button>
+            <button class="tool-btn" id="zoomOutBtn" title="缩小"><i data-lucide="zoom-out"></i></button>
+            <button class="tool-btn" id="zoomInBtn" title="放大"><i data-lucide="zoom-in"></i></button>
+          </div>
+        </div>
+
+        <div class="map-stage-wrap" id="mapStageWrap">
+          <div class="map-stage" id="mapStage" tabindex="0" aria-label="地图标记区域">
+            <div class="map-image" id="mapImage">
+              <div class="map-placeholder">
+                <div class="placeholder-crosshair"><span></span><span></span></div>
+                <p>地图加载中</p>
+                <small>正在载入所选 Squad 地图</small>
+                <button id="retryMapBtn" class="outline-btn" type="button"><i data-lucide="refresh-cw"></i> 重试加载</button>
+                <button id="placeholderImportBtn" class="outline-btn"><i data-lucide="upload"></i> 导入地图图片</button>
+              </div>
+              <img class="map-raster" id="mapRaster" alt="Squad 地图底图" draggable="false" referrerpolicy="no-referrer" fetchpriority="high" />
+              <div class="range-ring" id="rangeRing" aria-hidden="true"></div>
+              <svg class="grid-overlay" id="gridOverlay" aria-hidden="true"></svg>
+              <div id="blastLayer" aria-hidden="true"></div>
+              <div class="map-label top-left">N ↑</div>
+              <div class="map-label bottom-right" id="coordReadout">X 000 / Y 000</div>
+            </div>
+            <div id="markersLayer"></div>
+          </div>
+          <div class="map-help">单指拖动地图 · 双指缩放 · 点击放置 · 电脑 Shift+拖动 / 滚轮<br>实线 / 虚线：100 / 25 伤害边界 · 绿色：最大射程</div>
+        </div>
+
+        <div class="map-footer">
+          <div class="placement-toggle" role="group" aria-label="标记模式">
+            <button id="gunModeBtn" class="placement-btn active"><i data-lucide="crosshair"></i> 放置炮位</button>
+            <button id="targetModeBtn" class="placement-btn"><i data-lucide="target"></i> 添加目标</button>
+          </div>
+          <div class="map-footer-actions">
+            <button class="ghost-btn" id="undoBtn" title="撤销上一步"><i data-lucide="undo-2"></i>撤销</button>
+            <button class="ghost-btn danger" id="deleteBtn" title="删除选中目标"><i data-lucide="trash-2"></i>删除目标</button>
+          </div>
+        </div>
+
+        <section class="mobile-solutions" aria-label="目标解算">
+          <div class="mobile-solutions-heading">
+            <div><strong><span id="mobileSolutionCount">00</span> 个目标</strong><span id="mobileSolutionMeta">放置炮位后显示解算</span></div>
+            <button class="card-icon-btn" id="mobileCopySalvoBtn" type="button" title="复制全部射击口令" aria-label="复制全部射击口令"><i data-lucide="copy"></i></button>
+          </div>
+          <div class="mobile-solutions-list" id="mobileSolutionsList" aria-live="polite"></div>
+          <div class="mobile-solutions-empty" id="mobileSolutionsEmpty">标记目标后，距离与方位会显示在这里</div>
+        </section>
+      </section>
+
+      <aside class="solutions-panel panel">
+        <div class="panel-heading solution-heading">
+          <div><p class="eyebrow">SOLUTIONS</p><h2><span id="solutionCount">00</span> 个目标</h2></div>
+          <button class="copy-btn" id="copySalvoBtn" title="复制全部射击口令"><i data-lucide="copy"></i><span>复制齐射</span></button>
+        </div>
+        <div class="solution-meta"><span id="solutionMeta">等待放置炮位和目标</span><span class="mono" id="solutionMapCode">ALB</span></div>
+        <div class="solutions-list" id="solutionsList"></div>
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon"><i data-lucide="crosshair"></i></div>
+          <p>先在地图上放置炮位</p>
+          <small>再切换到“添加目标”模式</small>
+        </div>
+        <div class="solution-footer">
+          <div class="footer-stat"><span>当前距离</span><strong id="totalDistance">—</strong></div>
+          <div class="footer-stat"><span>最远目标</span><strong id="maxDistance">—</strong></div>
+        </div>
+      </aside>
+    </section>
+
+    <footer class="bottom-status">
+      <div><span class="status-square"></span><span id="statusText">READY / 等待地图标记</span></div>
+      <div class="bottom-coords"><span id="gunCoord">GUN —</span><span id="targetCoord">TARGET —</span><span id="lastUpdate">LOCAL STORAGE ON</span></div>
+    </footer>
+  </main>
+  <input type="file" id="mapFileInput" accept="image/*" hidden />
+  <input type="file" id="planFileInput" accept="application/json" hidden />
+  <script src="./vendor/lucide.min.js"></script>
+  <script src="./platform.js"></script>
+  <script src="./mortar-calculator.js?v=9"></script>
+  <script src="./app.js?v=9"></script>
+</body>
+</html>

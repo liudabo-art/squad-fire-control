@@ -1,0 +1,30 @@
+{
+  "name": "sqd-fire-control",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline Squad game map and fire planning calculator",
+  "author": "SQD Fire Control contributors",
+  "license": "SEE LICENSE IN THIRD-PARTY-NOTICES.txt",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "prepare:assets": "node scripts/prepare-assets.cjs",
+    "start": "electron .",
+    "build:windows": "npm run prepare:assets && node scripts/build_windows.cjs",
+    "build:android": "npm run prepare:assets && python scripts/build_android.py",
+    "test": "node --test tests/*.test.cjs"
+  },
+  "devDependencies": {
+    "electron": "45.2.1",
+    "electron-builder": "26.18.0",
+    "lucide": "1.66.0"
+  },
+  "build": {
+    "appId": "com.sqdfirecontrol.app",
+    "productName": "SQD Fire Control",
+    "directories": {"output": "release/windows", "buildResources": "resources"},
+    "files": ["index.html", "app.js", "mortar-calculator.js", "styles.css", "platform.js", "vendor/**", "map-assets/**", "licenses/**", "THIRD-PARTY-NOTICES.txt", "desktop/**", "resources/icon.png", "resources/icon.ico", "package.json"],
+    "win": {"icon": "resources/icon.ico", "target": ["nsis", "portable"], "signExecutable": false},
+    "nsis": {"oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true, "createDesktopShortcut": true, "createStartMenuShortcut": true, "artifactName": "SQD-Fire-Control-${version}-Windows-x64-Setup.${ext}"},
+    "portable": {"artifactName": "SQD-Fire-Control-${version}-Windows-x64-Portable.${ext}"}
+  }
+}
