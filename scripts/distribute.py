@@ -37,7 +37,7 @@ Windows 免安装：Windows-x64-Portable.exe 双击即可运行，首次解包�
 
 Windows 版本没有商业代码签名证书，系统可能显示未知发布者。核对文件来源和 SHA256SUMS.txt 后再决定是否运行。
 免费、非商业使用；分享时保留作者、来源和许可证。地图素材权利归 Offworld Industries 与相应模组作者。详见 THIRD-PARTY-NOTICES.txt 与 licenses/。
-这些是本地生成的分发文件，尚未上传应用商店或公共下载站。可将本目录文件发给朋友或上传你自己的下载渠道；无需分享项目源码、构建工具或签名私钥。
+这些安装包可从 GitHub Releases 下载：Android 用户选择 Android APK；Windows 用户选择 x64 安装版或免安装版。分享安装包时同时提供 SHA256SUMS.txt、THIRD-PARTY-NOTICES.txt 和 licenses/。切勿分享 Android 签名私钥或凭据。
 '''
 (DEST / '安装说明.txt').write_text(readme, encoding='utf-8-sig')
 checksums = [f'{digest(p)}  {p.relative_to(DEST).as_posix()}' for p in sorted(DEST.rglob('*')) if p.is_file() and p.name != 'SHA256SUMS.txt']

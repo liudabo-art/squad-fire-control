@@ -2,6 +2,12 @@
 
 Squad 游戏间接火力计算器，提供 Android APK、Windows 安装版和免安装版，也可直接使用网页版本。
 
+## 下载
+
+- Android： [Android 8+ APK](https://github.com/liudabo-art/squad-fire-control/releases/latest/download/SQD-Fire-Control-1.0.0-Android.apk)
+- Windows 10/11 x64： [安装版](https://github.com/liudabo-art/squad-fire-control/releases/latest/download/SQD-Fire-Control-1.0.0-Windows-x64-Setup.exe)；[免安装版](https://github.com/liudabo-art/squad-fire-control/releases/latest/download/SQD-Fire-Control-1.0.0-Windows-x64-Portable.exe)
+- [安装说明、SHA-256 和第三方声明](https://github.com/liudabo-art/squad-fire-control/releases/latest)
+
 本仓库公开应用源码和构建脚本，不提交 APK、EXE、构建缓存、签名密钥或游戏地图图像。没有本地地图图像时，地图底图通过 SquadCalc 在线加载，因此运行时需要网络。
 
 ## 本地分发包
