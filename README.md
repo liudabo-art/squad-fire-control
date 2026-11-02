@@ -4,15 +4,19 @@ Squad 游戏间接火力计算器，提供 Android APK、Windows 安装版和免
 
 ## 下载
 
-- Android： [Android 8+ APK](https://github.com/liudabo-art/squad-fire-control/releases/latest/download/SQD-Fire-Control-1.0.0-Android.apk)
-- Windows 10/11 x64： [安装版](https://github.com/liudabo-art/squad-fire-control/releases/latest/download/SQD-Fire-Control-1.0.0-Windows-x64-Setup.exe)；[免安装版](https://github.com/liudabo-art/squad-fire-control/releases/latest/download/SQD-Fire-Control-1.0.0-Windows-x64-Portable.exe)
+> ⚠️ **Windows 首次下载/运行提示**：Edge 或 Windows Defender SmartScreen 可能显示“通常不会下载”“未知发布者”或“Windows 已保护你的电脑”。当前 Windows EXE 未使用商业代码签名证书，这是信誉提示，不表示文件损坏。请只从本 Release 下载，并先用附件 `SHA256SUMS.txt` 核对文件。
+>
+> 下载栏：点击文件右侧“…” → “保留” → “仍要保留”（如果出现）。运行时：右键 EXE →“属性”→勾选“解除锁定”→“应用”；再次启动后选择“更多信息”→“仍要运行”。如果公司或学校策略禁止执行，请联系管理员；也可以改用 Windows 免安装版或 Android APK。不要关闭整个 Defender，也不要运行来源不明的文件。
+
+- Android： [Android 8+ APK](https://github.com/liudabo-art/squad-fire-control/releases/latest/download/SQD-Fire-Control-1.0.1-Android.apk)
+- Windows 10/11 x64： [安装版](https://github.com/liudabo-art/squad-fire-control/releases/latest/download/SQD-Fire-Control-1.0.1-Windows-x64-Setup.exe)；[免安装版](https://github.com/liudabo-art/squad-fire-control/releases/latest/download/SQD-Fire-Control-1.0.1-Windows-x64-Portable.exe)
 - [安装说明、SHA-256 和第三方声明](https://github.com/liudabo-art/squad-fire-control/releases/latest)
 
 本仓库公开应用源码和构建脚本，不提交 APK、EXE、构建缓存、签名密钥或游戏地图图像。没有本地地图图像时，地图底图通过 SquadCalc 在线加载，因此运行时需要网络。
 
 ## 本地分发包
 
-本机生成的 1.0.0 打包文件位于 `release/distribute/`，不会随源码提交。Android 版要求 Android 8.0 或以上并保持 Android System WebView 更新；Windows 版面向 Windows 10/11 x64。安装后无需 Node.js、Python 或开发环境。离线版本包含 53 张地图底图、图标和 28 种武器/弹药选项；在线地形/高程图仍需网络。
+本机生成的 1.0.1 打包文件位于 `release/distribute/`，不会随源码提交。Android 版要求 Android 8.0 或以上并保持 Android System WebView 更新；Windows 版面向 Windows 10/11 x64。安装后无需 Node.js、Python 或开发环境。离线版本包含 53 张地图底图、图标和 28 种武器/弹药选项；在线地形/高程图仍需网络。
 
 手机使用“地图 / 设置”切换页面，单指拖动平移、双指缩放，点击放置炮位和目标。目标距离、方位角/密位、射程状态及高程修正在地图下方即时显示，支持多个目标和内部滚动。电脑和手机可通过导出/导入 JSON 文件交换计划，现有网页版本的标记不会自动迁移到独立应用。
 

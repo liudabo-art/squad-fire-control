@@ -23,6 +23,12 @@ shutil.copy2(ROOT / 'THIRD-PARTY-NOTICES.txt', DEST / 'THIRD-PARTY-NOTICES.txt')
 shutil.copytree(ROOT / 'licenses', DEST / 'licenses', dirs_exist_ok=True)
 readme = f'''SQD 火力计算器 {VERSION} — 安装与分享说明
 
+【重要：Windows 首次下载/运行提示】
+Edge 或 Windows Defender SmartScreen 可能显示“通常不会下载”“未知发布者”或“Windows 已保护你的电脑”。当前 Windows EXE 未使用商业代码签名证书，这是下载信誉提示，不等于文件损坏。请只从本 GitHub Release 下载，并先用 SHA256SUMS.txt 核对文件。
+
+下载栏：点击文件右侧“…” → “保留” → “仍要保留”（如果出现）。
+运行时：右键 EXE →“属性”→勾选“解除锁定”→“应用”；再次启动后选择“更多信息”→“仍要运行”。如果公司或学校策略禁止执行，请联系管理员。不要关闭整个 Defender，也不要运行来源不明的文件。
+
 Android 手机：打开 Android.apk 安装。如果系统询问，允许当前文件管理器/浏览器“安装未知应用”。需要 Android 8.0+ 和较新的 Android System WebView。
 Windows 10/11 x64：推荐运行 Windows-x64-Setup.exe，安装器会创建开始菜单与桌面快捷方式。无需安装环境。
 Windows 免安装：Windows-x64-Portable.exe 双击即可运行，首次解包需等待数秒。两个 Windows 文件任选一个。

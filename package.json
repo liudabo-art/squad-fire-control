@@ -1,6 +1,6 @@
 {
   "name": "sqd-fire-control",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Offline Squad game map and fire planning calculator",
   "author": "SQD Fire Control contributors",
